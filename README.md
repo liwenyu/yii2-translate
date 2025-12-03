@@ -2,6 +2,10 @@
 
 一个用于 Yii2 框架的国际化消息源组件，可以自动替换翻译结果中的货币单位并填充货币符号。
 
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![PHP Version](https://img.shields.io/badge/php-%3E%3D7.0-blue.svg)](https://php.net)
+[![Yii2 Version](https://img.shields.io/badge/yii2-%3E%3D2.0.0-blue.svg)](https://www.yiiframework.com/)
+
 ## 功能特性
 
 - ✅ 自动将翻译结果中的货币单位（如"元"、"yuan"等）替换为 `{currency}` 变量
@@ -16,7 +20,7 @@
 使用 Composer 安装：
 
 ```bash
-composer require liwenyu/translate
+composer require liwenyu/yii2-translate
 ```
 
 ## 使用方法
@@ -55,7 +59,7 @@ return [
         'i18n' => [
             'translations' => [
                 'app' => [
-                    'class' => 'liwenyu\translate\CurrencyMessageSource',
+                    'class' => 'liwenyu\translate\MessageSource',
                     'basePath' => '@app/messages',
                     'forceTranslation' => true,
                     'fileMap' => [
@@ -128,6 +132,36 @@ return [
 1. 组件使用正则表达式进行替换，对于中文使用特定的匹配规则，对于英文使用单词边界 `\b`，确保不会误替换其他文本
 2. 如果 `Yii::$app->params['currency_symbol']` 不存在，将使用 `defaultCurrencySymbol` 的值
 3. 可以通过设置 `enableCurrencyReplace` 为 `false` 来禁用货币替换功能
+4. 组件继承自 `yii\i18n\PhpMessageSource`，支持所有父类的功能和配置选项
+
+## 常见问题
+
+### Q: 如何添加自定义的货币单位？
+
+A: 在配置中的 `currencyUnits` 数组中添加即可：
+
+```php
+'currencyUnits' => [
+    '元',
+    'yuan',
+    'RMB',
+    'CNY',
+    'dollar',  // 添加美元
+    'dollars', // 添加美元复数
+],
+```
+
+### Q: 如何禁用货币替换功能？
+
+A: 设置 `enableCurrencyReplace` 为 `false`：
+
+```php
+'enableCurrencyReplace' => false,
+```
+
+### Q: 支持哪些货币符号？
+
+A: 支持任何字符串，包括 `￥`、`$`、`€`、`£`、`¥` 等，只需在 `params` 中配置即可。
 
 ## 许可证
 
@@ -145,3 +179,14 @@ MIT License
 - 初始版本发布
 - 支持货币单位自动替换
 - 支持货币符号自动填充
+- 支持中英文各种形式的货币单位
+- 可配置货币单位列表和货币符号
+
+## 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+## 相关链接
+
+- [GitHub 仓库](https://github.com/liwenyu/yii2-translate)
+- [Yii2 官方文档](https://www.yiiframework.com/doc/guide/2.0/en)
