@@ -24,9 +24,5 @@
         "psr-4": {
             "liwenyu\\translate\\": "src/"
         }
-    },
-    "extra": {
-        "bootstrap": "liwenyu\\translate\\Bootstrap"
     }
 }
-
