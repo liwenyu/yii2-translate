@@ -1,5 +1,5 @@
 {
-    "name": "liwenyu/translate",
+    "name": "liwenyu/yii2-translate",
     "description": "Yii2 货币替换消息源组件 - 自动替换翻译结果中的货币单位并填充货币符号",
     "type": "yii2-extension",
     "keywords": [
