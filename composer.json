@@ -1,0 +1,32 @@
+{
+    "name": "liwenyu/translate",
+    "description": "Yii2 货币替换消息源组件 - 自动替换翻译结果中的货币单位并填充货币符号",
+    "type": "yii2-extension",
+    "keywords": [
+        "yii2",
+        "i18n",
+        "translation",
+        "currency",
+        "message-source"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "liwenyu",
+            "email": "liwenyu66@126.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "yiisoft/yii2": ">=2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "liwenyu\\translate\\": "src/"
+        }
+    },
+    "extra": {
+        "bootstrap": "liwenyu\\translate\\Bootstrap"
+    }
+}
+
