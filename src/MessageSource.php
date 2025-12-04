@@ -35,6 +35,11 @@ class MessageSource extends PhpMessageSource
         'yuans',   // 英文复数：yuans
         'Yuan',    // 首字母大写
         'Yuans',   // 首字母大写复数
+        '$',       // 美元符号
+        'USD',     // 美元
+        'RMB',     // 人民币
+        'CNY',     // 中国元
+        '¥',       // 人民币符号
     ];
 
     /**
@@ -155,4 +160,3 @@ class MessageSource extends PhpMessageSource
         return $this->defaultCurrencySymbol;
     }
 }
-
