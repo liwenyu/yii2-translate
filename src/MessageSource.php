@@ -76,6 +76,17 @@ class MessageSource extends PhpMessageSource
         // 调用父类方法获取翻译结果
         $translated = parent::translateMessage($category, $message, $language);
 
+        // 如果翻译结果为 false（未找到翻译）或空字符串，但原始消息不为空
+        // 说明可能是中文 key 未找到翻译，此时应该使用原始消息进行处理
+        if (($translated === false || $translated === '') && $message !== '') {
+            $translated = $message;
+        }
+
+        // 如果翻译结果仍然是 false 或空，直接返回
+        if ($translated === false || $translated === '') {
+            return $translated;
+        }
+
         // 如果启用货币单位替换，则进行处理
         if ($this->enableCurrencyReplace) {
             // 步骤1：将货币单位替换为 {currency} 变量
