@@ -93,6 +93,7 @@ return [
     'Hello' => '你好',
     'World' => '世界',
     'Price' => '价格',
+    'currency' => '元',  // 测试：翻译文件中 value 就是单独的货币单位
     // 注意：这里故意不包含中文 key，用于测试中文 key 的处理
 ];
 PHP;
@@ -124,6 +125,7 @@ PHP;
             'testChineseKeyWithCurrency' => '测试中文 key 包含货币单位',
             'testEmptyTranslation' => '测试空翻译处理',
             'testCurrencyReplacement' => '测试货币单位替换',
+            'testCurrencyValueInTranslationFile' => '测试翻译文件中 value 为单独的货币单位',
         ];
 
         $passed = 0;
@@ -231,6 +233,24 @@ PHP;
         }
         
         return strpos($result1, '￥') !== false && strpos($result2, '￥') !== false;
+    }
+
+    /**
+     * 测试翻译文件中 value 为单独的货币单位
+     * 这是本次修复的核心测试：当翻译文件中 'currency' => '元' 时，返回的 '元' 应该被替换为货币符号
+     */
+    public function testCurrencyValueInTranslationFile()
+    {
+        // 测试翻译文件中 value 就是单独的货币单位
+        $result = $this->messageSource->translate('app', 'currency', 'zh-CN');
+        
+        // 应该返回货币符号，而不是 '元'
+        if ($result === false) {
+            return false;
+        }
+        
+        // 期望结果：'元' 被替换为 '￥'
+        return $result === '￥';
     }
 
     /**
