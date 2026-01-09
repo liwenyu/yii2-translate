@@ -126,6 +126,7 @@ PHP;
             'testEmptyTranslation' => '测试空翻译处理',
             'testCurrencyReplacement' => '测试货币单位替换',
             'testCurrencyValueInTranslationFile' => '测试翻译文件中 value 为单独的货币单位',
+            'testCurrencyWithHtmlTag' => '测试HTML标签前的货币单位替换',
         ];
 
         $passed = 0;
@@ -251,6 +252,28 @@ PHP;
         
         // 期望结果：'元' 被替换为 '￥'
         return $result === '￥';
+    }
+
+    /**
+     * 测试HTML标签前的货币单位替换
+     * 测试场景：:{user_gift}元< 这种情况应该被正确替换
+     */
+    public function testCurrencyWithHtmlTag()
+    {
+        // 测试包含HTML标签的场景
+        $result1 = $this->messageSource->translate('app', ':{user_gift}元<', 'zh-CN');
+        $result2 = $this->messageSource->translate('app', ':{user_gift}元>', 'zh-CN');
+        $result3 = $this->messageSource->translate('app', '100元<', 'zh-CN');
+        
+        // 应该替换货币单位
+        if ($result1 === false || $result2 === false || $result3 === false) {
+            return false;
+        }
+        
+        // 期望结果：货币单位被替换为货币符号
+        return strpos($result1, '￥') !== false 
+            && strpos($result2, '￥') !== false 
+            && strpos($result3, '￥') !== false;
     }
 
     /**
